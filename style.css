@@ -1,0 +1,43 @@
+div {
+    box-sizing: border-box;
+}
+
+/* .conteiner {
+    width: 1200px;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: aquamarine;
+}
+
+.shem {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(95, 20, 39);
+} */
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.function{
+    /* width: 469px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+td {
+  padding: 0 10px;
+  border: 1px solid #2a2a2a;
+}
+
+button{
+    width: 160px;
+}
+.btn{
+
+}
