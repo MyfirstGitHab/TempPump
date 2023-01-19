@@ -2,13 +2,7 @@ div {
     box-sizing: border-box;
 }
 
-/* .conteiner {
-    width: 1200px;
-    min-height: 500px;
-    margin: 0 auto;
-    padding: 10px;
-    background-color: aquamarine;
-}
+/* .
 
 .shem {
     width: 100px;
@@ -16,12 +10,54 @@ div {
     background-color: rgb(95, 20, 39);
 } */
 
+/* .conteiner {
+    position: relative;
+    background-color: aquamarine;
+} */
+.monitor{
+    position: relative;
+    display: block;
+    width: 834px;
+    height: 481px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .displayed {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
+.tempGVP,
+.tempBufer,
+.tempWell{
+    position: absolute;
+    width: 40px;
+    height: 22px;
+    background-color: rgb(255, 255, 255);
+    border: 3px solid black;
+    text-align: center;
+    margin: 0;
+    padding-top: 5px;
+
+}
+
+.tempGVP{
+    position: absolute;
+    top: 145px;
+    right:100px;
+}
+.tempBufer{
+    top: 23px;
+    left:156px;
+
+}
+.tempWell{
+    bottom: -35px;
+    left:53px;
+
+}
 .function{
     /* width: 469px; */
     margin-left: auto;
@@ -38,6 +74,6 @@ td {
 button{
     width: 160px;
 }
-.btn{
+.process{
 
 }

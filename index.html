@@ -9,8 +9,12 @@
 </head>
 <body>
     <div class="conteiner">
-        <img class="displayed" src="./imeg/АХ.bmp" alt="" >
-        <!-- <div class="shem"></div> -->
+        <div class="monitor" >
+            <img class="displayed" src="./imeg/АХ.bmp" alt="" >
+            <p class="tempGVP">25</p>
+            <p class="tempBufer">25</p>
+            <p class="tempWell">25</p>
+        </div>
     </div>
     <div class="conteiner">
         <table class="function">
@@ -52,6 +56,11 @@
             </tr>
         </table>
     </div>
+    <button type="button" class="processOn">Компресор ON</button>
+    <button type="button" class="processOff">Компресор OFF</button>
+    <button type="button" class="ResetWell">ЗбросСкважини</button>
+    <button type="button" class="ResetBufer">ЗбросБувера</button>
+    <button type="button" class="ResetGVP">ЗбросГВП</button>
 </body>
 <script src="./script.js"></script>
 </html>
