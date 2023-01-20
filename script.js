@@ -32,7 +32,24 @@ let modePHGVP=false;
 let modeAH=false;
 let modeGVP=false;
 
-
+let functiunModePH=setInterval(() => {
+    if(modePH){
+        b=b+0.07*(1098-b);
+        b=Math.round(b);
+        f=b/100;
+        console.log(b);
+        f=f.toFixed(1);
+        tempBufer.textContent=f;
+    };
+    if(modePH){
+        w=w+0.1*(798-w);
+        w=Math.round(w);
+        f=w/100;
+        console.log(b);
+        f=f.toFixed(1);
+        tempWell.textContent=f;
+    };
+},800);
 
 
 const SetProcessOn = () => {
@@ -40,16 +57,15 @@ const SetProcessOn = () => {
     processOff.removeAttribute('disabled');
     ON=true;
     processGVP=setInterval(() => {
-        if (!modeAH){
+        if (!modeAH ){
             y=y+0.05*(5505-y);
             y=Math.round(y);
             f=y/100;
             console.log(y);
             f=f.toFixed(1);
             tempGVP.textContent=f;
-
         }
-        if(modePHGVP || modeAH){
+        if(modePHGVP || modeAH || modePH){
             b=b+0.07*(498-b);
             b=Math.round(b);
             f=b/100;
@@ -64,7 +80,7 @@ const SetProcessOn = () => {
             console.log(b);
             f=f.toFixed(1);
             tempWell.textContent=f;
-        }
+        };
         // if(modeGVP){
         //     w=w+0.07*(798-w);
         //     w=Math.round(w);
@@ -74,7 +90,7 @@ const SetProcessOn = () => {
         //     tempWell.textContent=f;
         // }
         
-        if(modeGVP){
+        if(modeGVP || modePH){
             w=w+0.07*(798-w);
             w=Math.round(w);
             f=w/100;
@@ -103,6 +119,8 @@ const SetPH = () => {
     modeAH=false;
     modeGVP=false;
     monitoring();
+
+    functiunModePH;
 };
 const SetPHGVP = event => {
     image.setAttribute("src","./imeg/ПХГВП.bmp");
@@ -115,6 +133,8 @@ const SetPHGVP = event => {
     modeAH=false;
     modeGVP=false;
     monitoring();
+
+    clearInterval(functiunModePH);
 };
 const SetAH = event => {
     image.setAttribute("src","./imeg/АХ.bmp");
@@ -127,6 +147,8 @@ const SetAH = event => {
     modeAH=true;
     modeGVP=false;
     monitoring();
+
+    clearInterval(functiunModePH);
 };
 const SetGVP = event => {
     image.setAttribute("src","./imeg/ГВП.bmp")
@@ -139,6 +161,8 @@ const SetGVP = event => {
     modeAH=false;
     modeGVP=true;
     monitoring();
+
+    clearInterval(functiunModePH);
 };
 
 
@@ -188,4 +212,8 @@ console.log("modeGVP "+ modeGVP)
 };
 
 
-
+// let canvas=document.getElementById('c1');
+// let ctx=canvas.getContext('2b');
+// function draw() {
+//     ctx.fiiRect(x,y,2,2);
+// };
