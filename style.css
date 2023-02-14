@@ -14,6 +14,12 @@ div {
     position: relative;
     background-color: aquamarine;
 } */
+
+
+.BOX{
+    display: flex;
+    align-items: center;
+}
 .monitor{
     position: relative;
     display: block;
@@ -54,7 +60,7 @@ div {
 
 }
 .tempWell{
-    bottom: -35px;
+    bottom: 5px;
     left:53px;
 
 }
@@ -75,5 +81,7 @@ button{
     width: 160px;
 }
 #c1{
+    width: 1200px;
+    height: 300px;
     border: 2px solid black;
 }

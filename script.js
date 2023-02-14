@@ -22,6 +22,10 @@ let processGVP;
 let y=2500;
 let b=2500;
 let w=2500;
+let t=0;
+
+let canvas=document.getElementById("c1");
+let ctx=canvas.getContext('2d');
 
 console.log(y)
 console.log(b)
@@ -51,19 +55,32 @@ let functiunModePH=setInterval(() => {
     };
 },800);
 
-
+function ReStart(){
+    if (t>1200) {
+        t=0;
+        ctx.clearRect(0,0,1200,300);
+    };
+};
 const SetProcessOn = () => {
     processOn.disabled=true;
     processOff.removeAttribute('disabled');
     ON=true;
+    console.log('Start');
     processGVP=setInterval(() => {
+        ReStart();
+        t=t+1;
         if (!modeAH ){
             y=y+0.05*(5505-y);
             y=Math.round(y);
             f=y/100;
             console.log(y);
+            console.log(f);
+            console.log(t);
+            console.log(Math.floor(f));
             f=f.toFixed(1);
             tempGVP.textContent=f;
+            ctx.fillRect(t,300-Math.floor(f*3),3,3);
+            
         }
         if(modePHGVP || modeAH || modePH){
             b=b+0.07*(498-b);
@@ -98,7 +115,7 @@ const SetProcessOn = () => {
             f=f.toFixed(1);
             tempWell.textContent=f;
         }
-    }, 800);
+    }, 400);
 };
 const SetProcessOff = () => {
     processOff.disabled=true;
@@ -217,3 +234,74 @@ console.log("modeGVP "+ modeGVP)
 // function draw() {
 //     ctx.fiiRect(x,y,2,2);
 // };
+
+
+// let canvas=document.getElementById("c1");
+// let ctx=canvas.getContext('2d');
+
+// ctx.fillRect(y,t,1,1);
+// ctx.fillRect(100,50,150,75); //ctx.fillRect(x,y,width,height); Робимо прямокутник
+// ctx.fillStyle='red';
+// ctx.fillRect(251,50,150,75);
+// ctx.clearRect(150,75,150,150);//стераємо
+// ctx.rect(50,50,50,50);
+// ctx.stroke();
+// ctx.strokeStyle='green';
+// ctx.lineWidth="5";
+// ctx.stroke();
+// ctx.fillStyle='orange';
+// ctx.fill();
+// // Робим лінію
+// ctx.beginPath();
+// ctx.strokeStyle='black';
+// ctx.lineWidth="11";
+// ctx.lineCap='square';
+// ctx.moveTo(0,0);
+// ctx.lineTo(50,50);
+// ctx.stroke();
+// ctx.beginPath();
+// ctx.strokeStyle='red';
+// ctx.lineWidth="10";
+// ctx.lineCap='round';
+// ctx.moveTo(0,0);
+// ctx.lineTo(500,40);
+// ctx.stroke();
+
+// ctx.beginPath();
+// ctx.strokeStyle='red';
+// ctx.lineWidth="10";
+// ctx.lineCap='round';
+// ctx.moveTo(600,10);
+// ctx.lineTo(700,10);
+// ctx.stroke();
+
+// ctx.beginPath();
+// ctx.strokeStyle='blue';
+// ctx.lineWidth="10";
+// ctx.lineCap='square';
+// ctx.moveTo(600,30);
+// ctx.lineTo(700,30);
+// ctx.stroke();
+
+// ctx.beginPath();
+// ctx.strokeStyle='blue';
+// ctx.lineWidth="10";
+// ctx.lineCap='butt';
+// ctx.moveTo(600,50);
+// ctx.lineTo(700,50);
+// ctx.lineTo(700,80);
+// ctx.stroke();
+// ctx.clearRect(0,0,800,400);//стераємо
+
+// ctx.beginPath();
+// ctx.moveTo(50,150);
+// ctx.lineTo(150,50);
+// ctx.lineTo(200,150);
+// // ctx.lineTo(50,150);
+// ctx.lineWidth="4"
+// ctx.lineCap='round'
+// ctx.fillStyle="orange"
+// ctx.closePath();
+// ctx.stroke();
+
+// ctx.fill();

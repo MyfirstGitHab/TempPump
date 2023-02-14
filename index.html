@@ -8,60 +8,59 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="conteiner">
+    <div class="BOX">
         <div class="monitor" >
-            <img class="displayed" src="./imeg/АХ.bmp" alt="" >
-            <p class="tempGVP">25</p>
-            <p class="tempBufer">25</p>
-            <p class="tempWell">25</p>
+                <img class="displayed" src="./imeg/АХ.bmp" alt="" >
+                <p class="tempGVP">25</p>
+                <p class="tempBufer">25</p>
+                <p class="tempWell">25</p>
         </div>
-    </div>
-    <div class="conteiner">
         <table class="function">
-            <tr>
-                <th></th>
-                <th>Кл.2</th>
-                <th>Н.1</th>
-                <th>Н.2</th>
-                <th>Кл.3</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><button class="PH">Пасивний холод</button></td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td><button class="PHGVP">Пасивний холод і ГВП</button></td>
-                <td>1</td>
-                <td>0</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td><button class="AH">Активний холод</button></td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td><button class="GVP">ГВП</button></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Кл.2</th>
+                    <th>Н.1</th>
+                    <th>Н.2</th>
+                    <th>Кл.3</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><button class="PH">Пасивний холод</button></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><button class="PHGVP">Пасивний холод і ГВП</button></td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><button class="AH">Активний холод</button></td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><button class="GVP">ГВП</button></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                </tr>
         </table>
     </div>
+    
     <button type="button" class="processOn">Компресор ON</button>
     <button type="button" class="processOff">Компресор OFF</button>
     <button type="button" class="ResetWell">ЗбросСкважини</button>
     <button type="button" class="ResetBufer">ЗбросБувера</button>
     <button type="button" class="ResetGVP">ЗбросГВП</button>
-    <!-- <canvas id="c1" width="1200" height="200"></canvas> -->
+    <canvas id="c1" width="1200" height="300"></canvas>
 </body>
 <script src="./script.js"></script>
 </html>
