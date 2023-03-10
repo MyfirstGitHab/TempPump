@@ -9,235 +9,248 @@ const tempGVP=document.querySelector(".tempGVP");
 const tempWell=document.querySelector(".tempWell");
 const tempBufer=document.querySelector(".tempBufer");
 
-
-
 const processOn=document.querySelector(".processOn");
 const processOff=document.querySelector(".processOff");
-const ResetWell=document.querySelector(".ResetWell");
-const ResetBufer=document.querySelector(".ResetBufer");
-const ResetGVP=document.querySelector(".ResetGVP");
 
-let ON = false;
-let processGVP;
-let y=2500;
-let b=2500;
-let w=2500;
-let t=0;
+const inputTempBuf=document.querySelector(".buf");
+const inputTempBoil=document.querySelector(".boil");
+const inputTempWell=document.querySelector(".well");
+
+const inputTempDelta=document.querySelector(".delta");
+const ShowDelta=document.querySelector(".ShowDelta");
+
+const inputTemer1=document.querySelector(".Temer1");
+const ShowTimer1=document.querySelector(".ShowTimer1");
+
+const inputTemer2=document.querySelector(".Temer2");
+const ShowTimer2=document.querySelector(".ShowTimer2");
 
 let canvas=document.getElementById("c1");
 let ctx=canvas.getContext('2d');
+// const textTempBuf=document.querySelector("#text-temp-buf");
+// const textTempBoil=document.querySelector("#text-temp-boil");
+// const textTempWell=document.querySelector("#text-temp-well");
 
-console.log(y)
-console.log(b)
-console.log(w)
-let f;
+
+let process;
+
+let tWell=50;
+let tdelta=10;
+
+let tBuff=80;
+let tminBuff=50;
+let tmaxBuff=100;
+
+let tBoil=350;
+let tminBoil=300;
+let tmaxBoil=400;
+
+let M100=false;
+let M101=false;
+let M102=false;
+let M103=false;
+
 let modePH=false;
 let modePHGVP=false;
 let modeAH=false;
 let modeGVP=false;
 
-let functiunModePH=setInterval(() => {
-    if(modePH){
-        b=b+0.07*(1098-b);
-        b=Math.round(b);
-        f=b/100;
-        console.log(b);
-        f=f.toFixed(1);
-        tempBufer.textContent=f;
-    };
-    if(modePH){
-        w=w+0.1*(798-w);
-        w=Math.round(w);
-        f=w/100;
-        console.log(b);
-        f=f.toFixed(1);
-        tempWell.textContent=f;
-    };
-},800);
+let sT1=false;
+let T1=false;
+let T1Delay;
+let T1Sum=0;
 
-function ReStart(){
-    if (t>1200) {
-        t=0;
-        ctx.clearRect(0,0,1200,300);
-    };
-};
+let setT2=false;
+let T2=false;
+let T2Delay;
+let T2Sum=0;
+
+let time=0;
+
+
+// function timerJs(setTimer,id,count,Sum){
+//     if (setTimer==true){
+//         if (Sum>=count){
+//             id==true
+//         } else {
+//             console.log(Sum)
+//             Sum=Sum+1;
+//             return Sum;
+//             console.log("add")
+//             console.log(Sum)
+//         };
+//     } else {
+//         Sum=0;
+//         id=0;
+//     };
+//     console.log("setTimer "+setTimer)
+//     console.log("SSSSSS " +Sum )
+// };
+
 const SetProcessOn = () => {
     processOn.disabled=true;
     processOff.removeAttribute('disabled');
-    ON=true;
-    console.log('Start');
-    processGVP=setInterval(() => {
-        ReStart();
-        t=t+1;
-        if (!modeAH ){
-            y=y+0.05*(5505-y);
-            y=Math.round(y);
-            f=y/100;
-            console.log(y);
-            console.log(f);
-            console.log(t);
-            console.log(Math.floor(f));
-            f=f.toFixed(1);
-            tempGVP.textContent=f;
-            ctx.fillRect(t,300-Math.floor(f*3),3,3);
+    // console.log('Start');
+    process=setInterval(() => {
+        if(tBuff<=tminBuff){
+            M102=false;
+            M103=true; //викл ох
+        };
+        if (tBuff>=tmaxBuff){
+            M102=true; //вкл ох
+            M103=false;
+        };
+        if(tBoil>=tmaxBoil){
+            M100=false;
+            M101=true;
+            modeGVP=false;
+        };
+        if(tBoil<=tminBoil){
+            M100=true;
+            M101=false;
+            modeGVP=true;
+        };
+        if(M100==false && M102==true && M103==false && modeAH==false){modePH=true;} else {modePH=false;};
+        if(M100==false && M102==true && M103==false){sT1=true;} else {sT1=false;};
+        if(T1==true && (tdelta+tWell)>=tBuff && modeAH==false){modeAH=true;};
+        if(T1==false && modeAH==true){modeAH=false;};
+        if(M100==true && M101==false){setT2=true;} else {setT2=false;};
+        if(T2==true && tBuff>=tWell){modePHGVP=true;};
+        if((M100==false && M101==true) || tminBuff>=tBuff){modePHGVP=false;};
+        //  Таймер 1
+        if (sT1==true){
+            if (T1Sum>=T1Delay){
+                T1=true;
+            } else {
+                T1Sum=T1Sum+1;
+            };
+        } else if(sT1==false){
             
-        }
-        if(modePHGVP || modeAH || modePH){
-            b=b+0.07*(498-b);
-            b=Math.round(b);
-            f=b/100;
-            console.log(b);
-            f=f.toFixed(1);
-            tempBufer.textContent=f;
+            T1Sum=0;
+            T1=false;
         };
-        if(modeAH){
-            w=w+0.1*(798-w);
-            w=Math.round(w);
-            f=w/100;
-            console.log(b);
-            f=f.toFixed(1);
-            tempWell.textContent=f;
+        //  Таймер 2
+        if (setT2==true){
+            if (T2Sum>=T2Delay){
+                T2=true
+            } else {
+                T2Sum=T2Sum+1;
+            };
+        } else {
+            T2Sum=0;
+            T2=false;
         };
-        // if(modeGVP){
-        //     w=w+0.07*(798-w);
-        //     w=Math.round(w);
-        //     f=w/100;
-        //     console.log(b);
-        //     f=f.toFixed(1);
-        //     tempWell.textContent=f;
-        // }
         
-        if(modeGVP || modePH){
-            w=w+0.07*(798-w);
-            w=Math.round(w);
-            f=w/100;
-            console.log(b);
-            f=f.toFixed(1);
-            tempWell.textContent=f;
+        if((tdelta+tWell)>=tBuff){
+            ShowDelta.textContent=`Дельта t=${tdelta/10}___${(tdelta+tWell)/10}>=${tBuff/10}`;
+        } else {
+            ShowDelta.textContent=`Дельта t=${tdelta/10}___${(tdelta+tWell)/10}<${tBuff/10}`;
         }
-    }, 400);
+        ShowTimer1.textContent=`Таймер 1 t=${T1Delay}с._____${T1Sum}с.`;
+        ShowTimer2.textContent=`Таймер 2 t=${T2Delay}с._____${T2Sum}с.`;
+
+
+        if(modePH==true){
+            image.setAttribute("src","./imeg/ПХ.bmp")
+            PH.classList.add("ActivMode");
+            PHGVP.classList.remove("ActivMode");
+            AH.classList.remove("ActivMode");
+            GVP.classList.remove("ActivMode"); 
+            console.log("ПХ");
+        };
+        if(modePHGVP==true){
+            image.setAttribute("src","./imeg/ПХГВП.bmp");
+            PH.classList.remove("ActivMode");
+            PHGVP.classList.add("ActivMode");
+            AH.classList.remove("ActivMode");
+            GVP.classList.remove("ActivMode");
+            console.log("ПХГВП");
+        };
+        if(modeAH==true){
+            image.setAttribute("src","./imeg/АХ.bmp");
+            PH.classList.remove("ActivMode");
+            PHGVP.classList.remove("ActivMode");
+            AH.classList.add("ActivMode");
+            GVP.classList.remove("ActivMode");
+            console.log("АХ");
+        };
+        if(modeGVP==true && modePHGVP!=true){
+            image.setAttribute("src","./imeg/ГВП.bmp")
+            PH.classList.remove("ActivMode");
+            PHGVP.classList.remove("ActivMode");
+            AH.classList.remove("ActivMode");
+            GVP.classList.add("ActivMode");
+            console.log("ГВП");
+        };
+        if(modeGVP!=true && modeAH!=true && modePHGVP!=true && modePH!=true){
+            PH.classList.remove("ActivMode");
+            PHGVP.classList.remove("ActivMode");
+            AH.classList.remove("ActivMode");
+            GVP.classList.remove("ActivMode");
+            console.log("NON");
+        };
+        console.log("****");
+        console.log("M100 "+M100);
+        console.log("M101 "+M101);
+        console.log("M102 "+M102);
+        console.log("M103 "+M103);
+        ctx.fillStyle='red';
+        ctx.fillRect(time,(50-(Math.round(tBoil/10)))-1,1,1);
+        ctx.fillStyle='blue';
+        ctx.fillRect(time,(50-(Math.round(tBuff/10)))-1,1,1);
+        ctx.fillStyle='green';
+        ctx.fillRect(time,(50-(Math.round(tWell/10)))-1,1,1);
+        time+=1;
+        if(time==250){
+            time=0;
+            ctx.clearRect(0,0,250,50);
+        };
+        console.log("time "+Math.round(50-tBoil/10));
+
+
+    },500);
 };
+
 const SetProcessOff = () => {
     processOff.disabled=true;
     processOn.removeAttribute('disabled');
-    ON=false;
-    clearInterval(processGVP);
+    clearInterval(process);
 };
-
-
-const SetPH = () => {
-    image.setAttribute("src","./imeg/ПХ.bmp")
-    PH.disabled=true;
-    PHGVP.removeAttribute('disabled');
-    AH.removeAttribute('disabled');
-    GVP.removeAttribute('disabled'); 
-    modePH=true;
-    modePHGVP=false;
-    modeAH=false;
-    modeGVP=false;
-    monitoring();
-
-    functiunModePH;
-};
-const SetPHGVP = event => {
-    image.setAttribute("src","./imeg/ПХГВП.bmp");
-    PH.removeAttribute('disabled');
-    PHGVP.disabled=true;
-    AH.removeAttribute('disabled');
-    GVP.removeAttribute('disabled');
-    modePH=false;
-    modePHGVP=true;
-    modeAH=false;
-    modeGVP=false;
-    monitoring();
-
-    clearInterval(functiunModePH);
-};
-const SetAH = event => {
-    image.setAttribute("src","./imeg/АХ.bmp");
-    PH.removeAttribute('disabled');
-    PHGVP.removeAttribute('disabled');
-    AH.disabled=true;
-    GVP.removeAttribute('disabled');
-    modePH=false;
-    modePHGVP=false;
-    modeAH=true;
-    modeGVP=false;
-    monitoring();
-
-    clearInterval(functiunModePH);
-};
-const SetGVP = event => {
-    image.setAttribute("src","./imeg/ГВП.bmp")
-    PH.removeAttribute('disabled');
-    PHGVP.removeAttribute('disabled');
-    AH.removeAttribute('disabled');
-    GVP.disabled=true;
-    modePH=false;
-    modePHGVP=false;
-    modeAH=false;
-    modeGVP=true;
-    monitoring();
-
-    clearInterval(functiunModePH);
-};
-
-
-
-PH.addEventListener("click",SetPH);
-PHGVP.addEventListener("click",SetPHGVP);
-AH.addEventListener("click",SetAH);
-GVP.addEventListener("click",SetGVP);
-
-// processOn.addEventListener("click",SetProcessOn);
-// processOff.addEventListener("click",SetProcessOff);
-
-// let y=25;
-// const tempGVP=document.querySelector(".tempGVP");
-// const process=document.querySelector(".process");
-// process.addEventListener("click",(e)=>{
-//     y=y+0.05*(55.1-y);
-//     console.log("1 "+y);
-//     y=y.toFixed(2);
-//     console.log("2 "+y);
-//     y=Number.parseFloat(y);
-//     console.log("3 "+y);
-//     tempGVP.textContent=y;
-// });
 
 processOn.addEventListener("click",SetProcessOn);
 processOff.addEventListener("click",SetProcessOff);
 
-ResetWell.addEventListener("click",()=>{
-    tempWell.textContent=25;
-    w=2500;
+inputTempBuf.addEventListener("input",(event)=>{
+    tBuff=Number.parseInt(event.currentTarget.value);
+    // textTempBuf.textContent=tBuff/10;
+    tempBufer.textContent=tBuff/10;
 });
-ResetBufer.addEventListener("click",()=>{
-    tempBufer.textContent=25;
-    b=2500;
+inputTempBoil.addEventListener("input",(event)=>{
+    tBoil=Number.parseInt(event.currentTarget.value);
+    // textTempBoil.textContent=tBoil/10;
+    tempGVP.textContent=tBoil/10;
 });
-ResetGVP.addEventListener("click",()=>{
-    tempGVP.textContent=25;
-    y=2500;
+inputTempWell.addEventListener("input",(event)=>{
+    tWell=Number.parseInt(event.currentTarget.value);
+    // textTempWell.textContent=tWell/10;
+    tempWell.textContent=tWell/10;
 });
 
-const monitoring =()=>{
-    console.log("modePH "+ modePH)
-console.log("modePHGVP "+ modePHGVP)
-console.log("modeAH "+ modeAH)
-console.log("modeGVP "+ modeGVP)
-};
+inputTempDelta.addEventListener("input",(event)=>{
+    tdelta=Number.parseInt(event.currentTarget.value);
+    // textTempWell.textContent=tWell/10;
+    ShowDelta.textContent=`Дельта t=${tdelta/10}`;
+});
 
+inputTemer1.addEventListener("input",(event)=>{
+    T1Delay=Number.parseInt(event.currentTarget.value);
+    ShowTimer1.textContent=`Таймер 1 t=${T1Delay}`;
+});
 
-// let canvas=document.getElementById('c1');
-// let ctx=canvas.getContext('2b');
-// function draw() {
-//     ctx.fiiRect(x,y,2,2);
-// };
-
-
-// let canvas=document.getElementById("c1");
-// let ctx=canvas.getContext('2d');
+inputTemer2.addEventListener("input",(event)=>{
+    T2Delay=Number.parseInt(event.currentTarget.value);
+    ShowTimer2.textContent=`Таймер 2 t=${T2Delay}`;
+});
 
 // ctx.fillRect(y,t,1,1);
 // ctx.fillRect(100,50,150,75); //ctx.fillRect(x,y,width,height); Робимо прямокутник

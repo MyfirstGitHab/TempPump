@@ -11,19 +11,14 @@
     <div class="BOX">
         <div class="monitor" >
                 <img class="displayed" src="./imeg/АХ.bmp" alt="" >
-                <p class="tempGVP">35.0</p>
-                <p class="tempGVPMin">min=30</p>
-                <p class="tempGVPMax">max=40</p>
-                <input class="input-temp boil" value="350" type="range" min="250" max="500"/>
-                <p class="tempBufer">8</p>
-                <p class="tempBuferMin">min=5</p>
-                <p class="tempBuferMax">max=10</p>
-                <input class="input-temp buf" value="80" type="range" min="30" max="150"/>
-                <p class="tempWell">5</p>
-                <input class="input-temp well" value="50" type="range" min="40" max="120"/>
+                <p class="tempGVP">0</p>
+                <input class="input-temp boil" type="range" min="250" max="550"/>
+                <p class="tempBufer">0</p>
+                <input class="input-temp buf" type="range" min="30" max="150"/>
+                <p class="tempWell">0</p>
+                <input class="input-temp well" type="range" min="40" max="120"/>
         </div>
-        <div class="function">
-        <table>
+        <table class="function">
                 <tr>
                     <th></th>
                     <th>Кл.2</th>
@@ -61,27 +56,20 @@
                     <td>1</td>
                 </tr>
         </table>
-        <div class="ShowDelta" >Дельта t</div>
-        <input class="delta" type="range" min="10" max="50"/>
-        <div class="ShowTimer1" >Timer 1</div>
-        <input class="Temer1" type="range" min="10" max="50"/>
-        <div class="ShowTimer2" >Timer 2</div>
-        <input class="Temer2" type="range" min="10" max="50"/>
-        <button type="button" class="processOn">Start</button>
-        <button type="button" class="processOff">Stop</button>
-        </div>
-        
     </div>
     
-    
-    
-    <!-- <button type="button" class="ResetWell">ЗбросСкважини</button>
+    <button type="button" class="processOn">Компресор ON</button>
+    <button type="button" class="processOff">Компресор OFF</button>
+    <button type="button" class="ResetWell">ЗбросСкважини</button>
     <button type="button" class="ResetBufer">ЗбросБувера</button>
-    <button type="button" class="ResetGVP">ЗбросГВП</button> -->
+    <button type="button" class="ResetGVP">ЗбросГВП</button>
+    
     <!-- <span id="text-temp-buf"></span> -->
+    
     <!-- <span id="text-temp-boil"></span> -->
+    
     <!-- <span id="text-temp-well"></span> -->
-    <canvas id="c1" width="250" height="50"></canvas>
+    <!-- <canvas id="c1" width="1200" height="300"></canvas> -->
 </body>
 <script src="./script.js"></script>
 </html>

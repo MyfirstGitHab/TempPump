@@ -16,6 +16,7 @@ div {
 } */
 
 
+
 .BOX{
     display: flex;
     align-items: center;
@@ -46,24 +47,60 @@ div {
     text-align: center;
     margin: 0;
     padding-top: 5px;
-
 }
-
-.tempGVP{
+.input-temp{
     position: absolute;
+}
+.tempGVPMin{
+    position: absolute;
+    top: 90px;
+    right:120px;
+}
+.tempGVPMax{
+    position: absolute;
+    top: 90px;
+    right:60px;
+}
+.tempGVP{
     top: 145px;
     right:100px;
+}
+.tempBuferMin{
+    position: absolute;
+    top: 7px;
+    left:235px;
+}
+.tempBuferMax{
+    position: absolute;
+    top: 7px;
+    left:295px;
 }
 .tempBufer{
     top: 23px;
     left:156px;
-
 }
 .tempWell{
     bottom: 5px;
     left:53px;
-
 }
+.boil{
+    top: 125px;
+    right: 25px;
+    width: 140px;
+}
+
+.buf{
+    top: 38px;
+    left:220px;
+    width: 140px;
+}
+
+.well{
+    bottom: 40px;
+    left:15px;
+}
+
+
 .function{
     /* width: 469px; */
     margin-left: auto;
@@ -71,17 +108,29 @@ div {
 }
 
 
-
 td {
   padding: 0 10px;
   border: 1px solid #2a2a2a;
 }
-
+.ActivMode{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
 button{
+    display: block;
     width: 160px;
 }
 #c1{
-    width: 1200px;
-    height: 300px;
+    width: 1000px;
+    height: 200px;
     border: 2px solid black;
 }
+
+
